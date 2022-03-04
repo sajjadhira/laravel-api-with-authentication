@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\CoinsController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+// 1|x0E84YyItxp6HxtCAdFJA87hFvdmPf23dKHeqKNq
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,12 +23,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/coins', [CoinsController::class, 'index']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(
     ['middleware' => ['auth:sanctum']], function(){
         Route::post('coins', [CoinsController::class,'store']); 
         Route::put('coins/{id}', [CoinsController::class,'update']); 
         Route::delete('coins/{id}', [CoinsController::class,'destroy']); 
+        Route::post('/logout', [AuthController::class, 'logout']);
     }
 );
 
